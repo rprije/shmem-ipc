@@ -61,7 +61,7 @@ pub fn channel_bufsize<T>(capacity: usize) -> usize { capacity * size_of::<T>() 
 /// # Panics
 ///
 /// In case the buffer is too small or too big.
-pub fn channel<T: zerocopy::AsBytes + zerocopy::FromBytes + Copy>(buffer: &mut [u8]) -> (Sender<T>, Receiver<T>) {
+pub fn channel<T: zerocopy::IntoBytes + zerocopy::FromBytes + Copy>(buffer: &mut [u8]) -> (Sender<T>, Receiver<T>) {
     let b = unsafe { Buf::attach(buffer.as_mut_ptr(), buffer.len(), true).unwrap() };
     (Sender { buf: b, index: 0 }, Receiver { buf: b, index: 0 })
 }
@@ -108,7 +108,7 @@ impl<T> Buf<T> {
     }
 }
 
-impl<T: zerocopy::AsBytes + Copy> Sender<T> {
+impl<T: zerocopy::IntoBytes + Copy> Sender<T> {
     /// Assume a ringbuf is set up at the location.
     ///
     /// A buffer where the first 64 bytes are zero is okay.

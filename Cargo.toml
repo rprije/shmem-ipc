@@ -18,7 +18,7 @@ memmap2 = "0.5.8"
 # Zerocopy depends on proc-macro2 and syn, so having "thiserror" as a
 # dependency does not add too much compilation time.
 thiserror = "1"
-zerocopy = "0.3"
+zerocopy = "0.8.48"
 libc = "0.2.85"
 byteorder = "1.4"
 

@@ -79,7 +79,7 @@ impl Inner {
 
 pub struct Sender<T>(Inner, crate::ringbuf::Sender<T>);
 
-impl<T: Copy + zerocopy::AsBytes> Sender<T> {
+impl<T: Copy + zerocopy::IntoBytes> Sender<T> {
     /// Sets up a new ringbuffer and returns the sender half.
     pub fn new(capacity: usize) -> Result<Self, Error> {
         let inner = Inner::new::<T>(capacity, None)?;
